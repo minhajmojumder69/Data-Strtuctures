@@ -26,24 +26,28 @@ void insert_at_tail(Node *&head, Node *&tail, int val)
     tail = newnode;
 }
 
-// void printing_linked_list(Node* head)
-// {
-//     Node* tmp = head;
-//     while (tmp != NULL)
-//     {
-//         cout << tmp->val << endl;
-//         tmp = tmp->next;
-//     }
-// }
-void reverse_printing_linked_list(Node *tmp)
+void reverse_linked_list(Node *&head,Node*&tail ,Node* tmp)
 {
-    if (tmp == NULL)
+    if (tmp->next == NULL)
     {
+        head = tmp;
         return;
     }
-    reverse_printing_linked_list(tmp->next);
-    cout << tmp->val << endl;
+    reverse_linked_list(head,tail,tmp->next);
+    tmp->next->next = tmp;
+    tmp->next = NULL;
+    tail = tmp;
 }
+
+void printing_liked_list(Node *head)
+{
+    while (head != NULL)
+    {
+        cout << head->val << endl;
+        head = head->next;
+    }
+}
+
 int main()
 {
     Node *head = NULL;
@@ -60,7 +64,7 @@ int main()
 
         insert_at_tail(head, tail, val);
     }
-    reverse_printing_linked_list(head);
-
+    reverse_linked_list(head,tail,head);
+    printing_liked_list(head);
     return 0;
 }

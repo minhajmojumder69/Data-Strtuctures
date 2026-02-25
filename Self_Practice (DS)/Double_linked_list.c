@@ -4,23 +4,27 @@
 struct node
 {
    int data;
+   char name[1000];
+   float cgpa;
    struct node *next;
    struct node *pre;
 };
 struct node *head = NULL;
-void insertatbegin(int data)
+void insertatbegin(int data,char name[1000])
 {
    struct node *nn = malloc(sizeof(struct node));
    if (head == NULL)
    {
       nn->data = data;
+      strcpy(nn->name,name);
       nn->pre = NULL;
-      nn->next = head;
+      nn->next = NULL;
       head = nn;
    }
    else
    {
       nn->data = data;
+      strcpy(nn->name,name);
       nn->pre = NULL;
       nn->next = head;
       head->pre = nn;
@@ -29,13 +33,14 @@ void insertatbegin(int data)
 }
 
 // joining new node in middle
-void insertatmiddle(int data, int After_Node)
+void insertatmiddle(int data,char name, char After_Node)
 {
    struct node *nn = malloc(sizeof(struct node));
    nn->data = data;
+   strcpy(nn->name,name);
    struct node *temp = head;
 
-   while (temp->data != After_Node)
+   while (strcmp(nn->name,After_Node) != 0)
    {
       temp = temp->next;
    }
@@ -69,12 +74,12 @@ void deleteatbegin()
    free(tmp);
 }
 
-// Deleting new node in the Middle
-void deleteatmiddle(int Aftervalue)
+//Deleting new node in the Middle
+void deleteatmiddle(char Aftervalue[1000])
 {
    struct node *k;
    struct node *temp = head;
-   while (temp->next->data != Aftervalue)
+   while (strcmp(temp->name,Aftervalue))
    {
       temp = temp->next;
    }
@@ -87,16 +92,17 @@ void deleteatmiddle(int Aftervalue)
 
 void deleteatlast()
 {
-   struct node *k;
+   //struct node *k;
    struct node *temp = head;
    while (temp->next != NULL)
    {
-      k = temp;
+      //k = temp;
       temp = temp->next;
    }
-   temp->pre = NULL;
-   temp->next = NULL;
-   k->next = NULL;
+   temp->pre->next = NULL;
+   //temp->pre = NULL;
+   //temp->next = NULL;
+   //k->next = NULL;
    free(temp);
 }
 
@@ -105,60 +111,73 @@ void printList()
    struct node *temp = head;
    while (temp != NULL)
    {
-      printf("%d ", temp->data);
+      printf("%d %s", temp->data, temp->name);
       temp = temp->next;
+   }
+}
+
+void printulta()
+{
+   struct node *tmp = head;
+   while (tmp->next != NULL)
+   {
+      tmp = tmp->next;
+   }
+   while (tmp != NULL)
+   {
+      printf("%d ", tmp->data);
+      tmp = tmp->pre;
    }
 }
 
 int main()
 {
-   insertatbegin(4);
-   insertatbegin(6);
-   insertatbegin(8);
-   insertatbegin(10);
-   insertatbegin(11);
-   insertatbegin(12);
+   
+   insertatbegin(8,"nmh");
+   //insertatbegin(10);
+   // insertatbegin(11);
+   // insertatbegin(12);
    printf("\nAt the Beginning List: ");
    printList();
    printf("\n");
 
    // (13 is the Data & 8 is the After_Node)
-   insertatmiddle(13, 8);
-   insertatmiddle(14, 13);
-   insertatmiddle(15, 14);
-   insertatmiddle(16, 15);
-   insertatmiddle(17, 16);
-   insertatmiddle(18, 17);
-   printf("\nAt the MIddle List: ");
-   printList();
-   printf("\n");
+   // insertatmiddle(13, 8);
+   // insertatmiddle(14, 13);
+   // insertatmiddle(15, 14);
+   // insertatmiddle(16, 15);
+   // insertatmiddle(17, 16);
+   // insertatmiddle(18, 17);
+   // printf("\nAt the MIddle List: ");
+   // printList();
+   // printf("\n");
 
-   insertatlast(20);
-   insertatlast(21);
-   insertatlast(22);
-   insertatlast(23);
-   insertatlast(24);
-   insertatlast(25);
-   printf("\nAt the Last List: ");
-   printList();
-   printf("\n");
+   // insertatlast(20);
+   // insertatlast(21);
+   // insertatlast(22);
+   // insertatlast(23);
+   // insertatlast(24);
+   // insertatlast(25);
+   // printf("\nAt the Last List: ");
+   // printList();
+   // printf("\n");
 
-   printf("\nThe List: ");
-   printList();
-   printf("\n");
+   // printf("\nThe List: ");
+   // printList();
+   // printf("\n");
 
-   deleteatbegin();
-   printf("\nThe deleted at Begin List: ");
-   printList();
-   printf("\n");
+   // deleteatbegin();
+   // printf("\nThe deleted at Begin List: ");
+   // printList();
+   // printf("\n");
 
-   deleteatmiddle(20);
-   printf("\nThe deleted at Middle List: ");
-   printList();
-   printf("\n");
+   // deleteatmiddle(20);
+   // printf("\nThe deleted at Middle List: ");
+   // printList();
+   // printf("\n");
 
-   deleteatlast();
-   printf("\nThe deleted at Last List: ");
-   printList();
-   printf("\n");
+   // deleteatlast();
+   // printf("\nThe deleted at Last List: ");
+   // printList();
+   // printf("\n");
 }

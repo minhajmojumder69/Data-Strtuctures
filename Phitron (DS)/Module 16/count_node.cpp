@@ -24,7 +24,7 @@ Node *input_tree()
     else
         root = new Node(val);
     queue<Node *> q;
-    if (root != NULL)
+    if (root)
         q.push(root);
     while (!q.empty())
     {
@@ -64,26 +64,20 @@ Node *input_tree()
     }
     return root;
 }
-void level_order(Node *root)
+int count_nodes(Node* root)
 {
-    queue<Node *> q;
-    q.push(root);
-    while (!q.empty())
+    if (root == NULL)
     {
-        Node *f = q.front();
-        q.pop();
-
-        cout << f->val << " ";
-
-        if (f->left)
-            q.push(f->left);
-        if (f->right)
-            q.push(f->right);
+        return 0;
     }
+    int l = count_nodes(root->left);
+    int r = count_nodes(root->right);
+    return l+r+1;
+    
 }
 int main()
 {
     Node *root = input_tree();
-    level_order(root);
+    cout << count_nodes(root);
     return 0;
 }
